@@ -955,7 +955,7 @@ void CScrollingLayout::onWindowFocusChange(PHLWINDOW w)
   if (m_config.center_on_focus)
   {
     auto wd = dataFor(w);
-    if(!wd || w->m_isFloating)
+    if(!wd || w->m_isFloating || wd->column.lock() == *wd->column->workspace->columns.end())
       return;
     wd->column->workspace->centerCol(wd->column.lock());
     wd->column->workspace->recalculate();
