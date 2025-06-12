@@ -75,5 +75,6 @@ APICALL EXPORT void PLUGIN_EXIT() {
     HyprlandAPI::removeDispatcher(PHANDLE, "colresize");
     HyprlandAPI::removeDispatcher(PHANDLE, "swapcol");
     HyprlandAPI::removeDispatcher(PHANDLE, "promote");
+    HyprlandAPI::removeDispatcher(PHANDLE, "movewindowto");
     g_pScrollingLayout.reset();
 }
