@@ -110,6 +110,7 @@ class CScrollingLayout : public IHyprLayout {
     SDispatchResult                  focus(const std::string &arg);
     SDispatchResult                  promote();
     SDispatchResult                  swap(const std::string& dir);
+    SDispatchResult                  movewindowto(const std::string& args);
 
   private:
     std::vector<SP<SWorkspaceData>> m_workspaceDatas;

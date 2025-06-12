@@ -56,6 +56,7 @@ APICALL EXPORT PLUGIN_DESCRIPTION_INFO PLUGIN_INIT(HANDLE handle) {
     HyprlandAPI::addDispatcherV2(PHANDLE, "colresize", [](const std::string& args) -> SDispatchResult { return g_pScrollingLayout->colresize(args); });
     HyprlandAPI::addDispatcherV2(PHANDLE, "swapcol", [](const std::string& args) -> SDispatchResult { return g_pScrollingLayout->swap(args); });
     HyprlandAPI::addDispatcherV2(PHANDLE, "promote", [](const std::string& args) -> SDispatchResult { return g_pScrollingLayout->promote(); });
+    HyprlandAPI::addDispatcherV2(PHANDLE, "movewindowto", [](const std::string& args) -> SDispatchResult { return g_pScrollingLayout->movewindowto(args); });
 
         if (success) HyprlandAPI::addNotification(PHANDLE, "[hyprscrolling] Initialized successfully!", CHyprColor{0.2, 1.0, 0.2, 1.0}, 5000);
     else {

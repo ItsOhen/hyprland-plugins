@@ -975,7 +975,7 @@ std::any CScrollingLayout::layoutMessage(SLayoutMessageHeader header, std::strin
 
   ELIF_CHAIN("move", move(args[1]))
   ELIF_CHAIN("colresize", colresize(message.substr(message.find(' ') + 1)))
-//  ELIF_CHAIN("movewindowto", moveWindowTo(g_pCompositor->m_lastWindow.lock(), args[1], false))
+  ELIF_CHAIN("movewindowto", movewindowto(args[1]))
   ELIF_CHAIN("fit", fit(message.substr(message.find(' ') + 1)))
   ELIF_CHAIN("focus", focus(args[1]))
   ELIF_CHAIN("promote", promote())
@@ -1008,6 +1008,12 @@ void CScrollingLayout::switchWindows(PHLWINDOW a, PHLWINDOW b) {
     centerOrFit(ws,w_a->column.lock());
     ws->recalculate();
   }
+}
+
+/* NOTE: maybe not do this? */
+SDispatchResult CScrollingLayout::movewindowto(const std::string& str){
+  moveWindowTo(g_pCompositor->m_lastWindow.lock(), str, false);
+  return {};
 }
 
 void CScrollingLayout::moveWindowTo(PHLWINDOW w, const std::string& dir, bool silent) {
