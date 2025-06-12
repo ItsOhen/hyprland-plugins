@@ -4,8 +4,6 @@
 #include <hyprland/src/layout/IHyprLayout.hpp>
 #include <hyprland/src/helpers/memory/Memory.hpp>
 #include <hyprland/src/managers/HookSystemManager.hpp>
-#include <hyprland/src/config/ConfigValue.hpp>
-#include <hyprutils/string/VarList.hpp>
 
 class CScrollingLayout;
 struct SColumnData;
@@ -117,7 +115,6 @@ class CScrollingLayout : public IHyprLayout {
     std::vector<SP<SWorkspaceData>> m_workspaceDatas;
 
     SP<HOOK_CALLBACK_FN>            m_configCallback;
-    SP<HOOK_CALLBACK_FN>            m_activewindowCB;
 
     struct {
         float column_width;

@@ -845,7 +845,6 @@ SDispatchResult CScrollingLayout::colresize(const std::string& str) {
   const auto w = dataFor(g_pCompositor->m_lastWindow.lock());
   const auto ws = w->column->workspace;
   const auto args = CVarList(str, 0, 's');
-  Debug::log(ERR, "args : {} , args[0] : {} , args[0][0] : {}", str, args[0], args[0][0]);
   float width = 0.0;
   if (!ws)
     return { .success = false, .error = "Unable to find workspace"};
@@ -872,7 +871,6 @@ SDispatchResult CScrollingLayout::colresize(const std::string& str) {
       width = (it != m_config.configuredWidths.begin()) ? *(--it) : m_config.configuredWidths.back();
     } else {
       const auto PLUSMINUS = getPlusMinusKeywordResult(args[0], 0);
-      Debug::log(ERR, "Got arg: {} and val: {}",args[0], *PLUSMINUS);
       if (!PLUSMINUS.has_value())
         return { .success = false, .error = "Invalid value"};
       width = w->column->columnWidth + *PLUSMINUS;
@@ -964,10 +962,6 @@ void CScrollingLayout::onWindowFocusChange(PHLWINDOW w)
   }
   // Maybe?
   //g_pCompositor->focusWindow(wd.lock());
-}
-void CScrollingLayout::moveActiveWindow(const Vector2D& vec, PHLWINDOW w = nullptr)
-{
-  Debug::log(ERR,"vec: {} {}, w: {}", vec.x, vec.y, w);
 }
 
 std::any CScrollingLayout::layoutMessage(SLayoutMessageHeader header, std::string message) {
