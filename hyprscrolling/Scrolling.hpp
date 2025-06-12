@@ -93,7 +93,6 @@ class CScrollingLayout : public IHyprLayout {
     virtual std::string              getLayoutName();
     virtual void                     replaceWindowDataWith(PHLWINDOW from, PHLWINDOW to);
     virtual Vector2D                 predictSizeForNewWindowTiled();
-    virtual void                     moveActiveWindow(const Vector2D&, PHLWINDOW w);
 
     virtual void                     onEnable();
     virtual void                     onDisable();
