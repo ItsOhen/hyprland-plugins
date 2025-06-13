@@ -96,8 +96,20 @@ class CScrollingLayout : public IHyprLayout {
 
     virtual void                     onEnable();
     virtual void                     onDisable();
+    virtual void                     onWindowFocusChange(PHLWINDOW w);
 
+
+    void                             loadConfig();
+    void                             centerOrFit(const SP<SWorkspaceData> ws, const SP<SColumnData> col);
     CBox                             usableAreaFor(PHLMONITOR m);
+
+    SDispatchResult                  move(const std::string &arg);
+    SDispatchResult                  colresize(const std::string &args);
+    SDispatchResult                  fit(const std::string &args);
+    SDispatchResult                  focus(const std::string &arg);
+    SDispatchResult                  promote();
+    SDispatchResult                  swap(const std::string& dir);
+    SDispatchResult                  movewindowto(const std::string& args);
 
   private:
     std::vector<SP<SWorkspaceData>> m_workspaceDatas;
@@ -105,7 +117,12 @@ class CScrollingLayout : public IHyprLayout {
     SP<HOOK_CALLBACK_FN>            m_configCallback;
 
     struct {
+        float column_width;
         std::vector<float> configuredWidths;
+        int focus_fit_method;
+        bool fullscreen_on_one;
+        float special_scale_factor;
+        int center_on_focus;
     } m_config;
 
     SP<SWorkspaceData>       dataFor(PHLWORKSPACE ws);
