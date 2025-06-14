@@ -936,23 +936,27 @@ SDispatchResult CScrollingLayout::focus(const std::string& arg) {
 }
 
 SDispatchResult CScrollingLayout::promote() {
-    const auto w = dataFor(g_pCompositor->m_lastWindow.lock());
-    if (!w)
+    const auto w  = dataFor(g_pCompositor->m_lastWindow.lock());
+    const auto ws = w->column->workspace;
+    if (!w || !ws)
         return {.success = false, .error = "Unable to find window"};
-    auto idx = w->column->workspace->idx(w->column.lock());
-    auto col = idx == -1 ? w->column->workspace->add() : w->column->workspace->add(idx);
+    auto idx = ws->idx(w->column.lock());
+    auto col = idx == -1 ? ws->add() : ws->add(idx);
     w->column->remove(w->window.lock());
     col->add(w);
+    ws->recalculate();
+
     return {};
 }
 
 void CScrollingLayout::onWindowFocusChange(PHLWINDOW w) {
     if (m_config.center_on_focus) {
         auto wd = dataFor(w);
-        if (!wd || w->m_isFloating)
+        auto ws = currentWorkspaceData();
+        if (!wd || w->m_isFloating || !ws)
             return;
-        wd->column->workspace->centerCol(wd->column.lock());
-        wd->column->workspace->recalculate();
+        ws->centerCol(wd->column.lock());
+        ws->recalculate();
     }
     // Maybe?
     // g_pCompositor->focusWindow(wd.lock());
